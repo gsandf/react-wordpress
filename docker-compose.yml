@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  db:
+    image: mysql
+    restart: always
+    command: '--default-authentication-plugin=mysql_native_password'
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: demodb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - '8081:3306'
+
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress
+    restart: always
+    volumes:
+      - ./wordpress:/var/www/html
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: demodb
+      WORDPRESS_DB_USER: user
+      WORDPRESS_DB_PASSWORD: password
+    ports:
+      - 8080:80
+      - 443:443

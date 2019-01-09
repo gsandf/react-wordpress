@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "setup": "cd client && yarn",
+    "start": "docker-compose up -d && open http://localhost:8080 && cd client && yarn start"
+  }
+}
